@@ -1,8 +1,14 @@
-package amazon.test;
+package amazon.test.stepDefinations;
 
 
 import org.junit.Assert;
 
+import amazon.test.cucumber.ScenarioContext;
+import amazon.test.enums.Context;
+import amazon.test.pages.CartPage;
+import amazon.test.pages.HomePage;
+import amazon.test.pages.LoginPage;
+import amazon.test.pages.ProductPage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,11 +20,14 @@ public class StepDefs {
 	private LoginPage loginpage;
 	private ProductPage productpage;
 	private CartPage cartpage;
+	private ScenarioContext scenarioContext;
+	
 	public StepDefs(){
 		homepage = new HomePage();
 		loginpage = new LoginPage();
 		productpage = new ProductPage();
 		cartpage = new CartPage();
+		scenarioContext = new ScenarioContext();
 	}
 	
 	@Given("Open {string} website")
@@ -36,6 +45,7 @@ public class StepDefs {
 	@When("Search for product {string}")
 	public void search_for_product(String product) {
 	    homepage.searchForProduct(product);
+	    scenarioContext.setContext(Context.PRODUCT_NAME, product);
 	}
 
 	@When("sort result by price-ascending order")
@@ -43,9 +53,9 @@ public class StepDefs {
 		homepage.sortBy();
 	}
 
-	@When("add product {string} to shopping cart")
-	public void add_product_to_shopping_cart(String string) {
-		homepage.selectProduct(string);
+	@When("add searched product to shopping cart")
+	public void add_product_to_shopping_cart() {
+		homepage.selectProduct((String)scenarioContext.getContext(Context.PRODUCT_NAME));
 		homepage.switchToNewWindow();
 		productpage.clickSeeAllBuyingOptions();
 		productpage.clickAddToCart();
@@ -55,7 +65,7 @@ public class StepDefs {
 	public void verify_product_and_quantity_is_displaying_in_the_cart() throws InterruptedException {
 	   homepage.gotoCart();
 	   Thread.sleep(3000);
-	   Assert.assertEquals("Fossil Analog Unisex Watch - FS4656",cartpage.getProductName().trim());
+	   Assert.assertEquals((String)scenarioContext.getContext(Context.PRODUCT_NAME),cartpage.getProductName().trim());
 	   Assert.assertEquals("10,795.00", cartpage.getProductPrice().trim());   
 	}
 

@@ -1,4 +1,4 @@
-package amazon.test;
+package amazon.test.stepDefinations;
 
 import java.util.concurrent.TimeUnit;
 

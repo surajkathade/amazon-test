@@ -1,10 +1,11 @@
-package amazon.test;
+package amazon.test.pages;
 
-import java.util.List;
 import java.util.Set;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import amazon.test.stepDefinations.DriverFactory;
 
 public class BasePage {
 
