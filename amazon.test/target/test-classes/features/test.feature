@@ -1,7 +1,7 @@
 Feature: Amazon Test
 
 Scenario: First Test
-Given Open "https://www.amazon.in/" website
+Given Open Amazon website
 And Login to the portal
 When Search for product "Fossil Analog Unisex Watch - FS4656"
 And sort result by price-ascending order

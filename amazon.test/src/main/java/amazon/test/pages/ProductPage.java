@@ -17,10 +17,14 @@ public class ProductPage extends BasePage{
 	
 	//a[@title='See All Buying Options']
 	
-	@FindBy(how=How.ID, using="buybox-see-all-buying-choices-announce")              //nav-link-yourAccount //div[@id='nav-tools']/a/span[text()='Sign in']
+	
+	@FindBy(how=How.XPATH, using="//div[@id='unqualifiedBuyBox']//span[@class='a-color-price']")
+	private WebElement productPrice;
+	
+	@FindBy(how=How.ID, using="buybox-see-all-buying-choices-announce")
 	private WebElement seeAllBuyingOptions;
 	
-	@FindBy(how=How.NAME, using="submit.addToCart")              //nav-link-yourAccount //div[@id='nav-tools']/a/span[text()='Sign in']
+	@FindBy(how=How.NAME, using="submit.addToCart")
 	private WebElement addToCart;
 	
 	public void clickSeeAllBuyingOptions() {
@@ -31,5 +35,8 @@ public class ProductPage extends BasePage{
 		click(addToCart);
 	}
 	
+	public String getProductPrice() {
+		return productPrice.getText();
+	}
 	
 }
